@@ -573,7 +573,7 @@ ACK = """
         <h2 id="jury">Jury</h2>
         <p>The contest chairs will invite additional domain experts to join the jury, including:</p>
         <ul class="people">
-          <li><strong>Steve Burke</strong>, Process Engineer, Lawrence Livermore National Laboratory</li>
+          <li><strong>Steve Burke</strong>, Lead Engineer & SME for Metal AM, Lawrence Livermore National Laboratory</li>
           <li><strong>Massimiliano Ferrucci</strong>, NDE Engineer, Lawrence Livermore National Laboratory</li>
         </ul>
 
