@@ -1,0 +1,15 @@
+# macOS metadata
+.DS_Store
+._*
+
+# Playwright MCP artifacts
+.playwright-mcp/
+
+# Microsoft Office temporary lock files
+~$*
+
+# Python caches and local virtual environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/

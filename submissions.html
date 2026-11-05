@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Submissions | IEEE SciVis Contest 2027</title>
+  <meta name="description" content="IEEE SciVis Contest 2027: visual analysis of additively manufactured lattice structures">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav-wrap">
+      <a class="brand" href="index.html">
+        <img src="images/logo.png" alt="" width="44" height="44">
+        <span>SciVis Contest 2027</span>
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation">
+      <label for="nav-toggle" class="nav-burger"><span></span><span></span><span></span></label>
+      <nav class="site-nav" aria-label="Main">
+        <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="data.html">Data</a></li>
+        <li><a href="tasks.html">Tasks</a></li>
+        <li class="active"><a href="submissions.html" aria-current="page">Submissions</a></li>
+        <li><a href="archive.html">Archive</a></li>
+        <li><a href="acknowledgements.html">Acknowledgements</a></li>
+        <li><a href="pastcontests.html">Past SciVis Contests</a></li>
+        <li><a href="faqs.html">FAQs</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="page-title"><div class="wrap"><h1>Submissions</h1><p>What to include, how to submit through the Precision Conference System, and the key dates.</p></div></section>
+    <div class="wrap page-grid">
+      <aside class="toc" aria-label="On this page">
+        <p>On this page</p>
+        <ol>
+          <li><a href="#include">What to include</a></li>
+          <li><a href="#how">How to submit</a></li>
+          <li><a href="#dates">Important dates</a></li>
+        </ol>
+      </aside>
+      <article class="prose">
+        <h2 id="include">What to include</h2>
+        <p>All submissions, in both tracks, consist of:</p>
+        <ol>
+          <li><strong>Report (PDF).</strong> A 3–4 page manuscript in the <a href="https://tc.computer.org/vgtc/publications/conference/">VGTC conference format</a> (LaTeX and Word templates available), plus up to one additional page for references. Focus on methods, design rationale, and results; keep background and data description brief, since the readers know the data. Figures may be appended after the references. Maximum file size 50 MB. The report must state the track and list all authors, and it should address each of the <a href="tasks.html#evaluation">evaluation criteria</a> for its track. <br><br>For the Agentic AI Track, the report is a human-authored account of the agent (see <a href="tasks.html#report-not-agent">the track description</a>) and must cover: (i) the <strong>agent architecture</strong>: models, tools, skills, sub-agents, memory, planning and verification strategy, and the initial prompt(s); (ii) the <strong>autonomy protocol</strong> of the final run: how it was launched, how long it ran, and evidence that nobody intervened; (iii) <strong>failure modes</strong>: what went wrong during development, how the design mitigates it, and what still failed or was fragile in the final run; (iv) a <strong>self-assessment</strong> of the generated visualization system against Tasks 1 and 2, including what the team would have designed differently by hand; and (v) <strong>compute and cost</strong>: tokens, wall-clock time, hardware, and approximate monetary cost per specimen. Figures reproducing agent-generated visualizations are welcome and should be labeled as agent output; human-made figures (e.g., an architecture diagram) should be distinguishable from them.</li>
+          <li><strong>Video.</strong> An MPEG, AVI, MP4, or QuickTime video of at most 10 minutes demonstrating the system, methods, or process in action. For the Agentic AI Track, we encourage including footage of the autonomous run.</li>
+        </ol>
+        <p>Agentic AI Track submissions additionally include:</p>
+        <ol start="3">
+          <li><strong>ZIP archive of defect CSVs.</strong> The nine per-specimen CSVs of the <a href="tasks.html#csv">CSV specification</a> in a single ZIP file. Optionally, the ZIP may also contain the initial prompt(s), the agent configuration, and run logs; these are helpful for verification but are not required.</li>
+        </ol>
+        <p>Individual and group submissions are both welcome. Please include the full author list at submission time.</p>
+
+        <h2 id="how">How to submit</h2>
+        <p>Submissions are made through the <a href="https://new.precisionconference.com">Precision Conference System</a>:</p>
+        <ol>
+          <li>Sign in or create an account.</li>
+          <li>Open the <strong>Submissions</strong> tab.</li>
+          <li>Under <strong>Make a new submission</strong>, select <strong>VGTC</strong> (Society), <strong>VIS 2027</strong> (Conference/Journal), and <strong>VIS 2027 SciVis Contest</strong> (Track).</li>
+          <li>Upload the report, the video, and (Agentic AI Track) the ZIP archive, and indicate your track in the submission form.</li>
+        </ol>
+        <p>Top entries will be invited to present at the SciVis Contest session at IEEE VIS 2027, and the best submission may be invited to submit an extended version to <em>IEEE Computer Graphics and Applications</em>. The top entry receives a <strong>$1,000 cash prize</strong> sponsored by <a href="https://www.visoar.com/">ViSOAR</a>; any additional prizes will be announced on this website.</p>
+
+      </article>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>IEEE SciVis Contest 2027 &nbsp;|&nbsp; Co-organized with <a href="https://ieeevis.org">IEEE VIS</a> &nbsp;|&nbsp; Created at Lawrence Livermore National Laboratory &nbsp;|&nbsp; Questions: see <a href="acknowledgements.html">Organizers</a></p>
+    </div>
+  </footer>
+</body>
+</html>

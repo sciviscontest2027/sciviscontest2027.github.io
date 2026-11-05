@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data | IEEE SciVis Contest 2027</title>
+  <meta name="description" content="IEEE SciVis Contest 2027: visual analysis of additively manufactured lattice structures">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav-wrap">
+      <a class="brand" href="index.html">
+        <img src="images/logo.png" alt="" width="44" height="44">
+        <span>SciVis Contest 2027</span>
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation">
+      <label for="nav-toggle" class="nav-burger"><span></span><span></span><span></span></label>
+      <nav class="site-nav" aria-label="Main">
+        <ul>
+        <li><a href="index.html">Home</a></li>
+        <li class="active"><a href="data.html" aria-current="page">Data</a></li>
+        <li><a href="tasks.html">Tasks</a></li>
+        <li><a href="submissions.html">Submissions</a></li>
+        <li><a href="archive.html">Archive</a></li>
+        <li><a href="acknowledgements.html">Acknowledgements</a></li>
+        <li><a href="pastcontests.html">Past SciVis Contests</a></li>
+        <li><a href="faqs.html">FAQs</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="page-title"><div class="wrap"><h1>Data</h1><p>Background on the specimens, and the files you will receive for each of the nine lattices.</p></div></section>
+    <div class="wrap page-grid">
+      <aside class="toc" aria-label="On this page">
+        <p>On this page</p>
+        <ol>
+          <li><a href="#background">Background</a>
+            <ol>
+              <li><a href="#lpbf">Laser powder-bed fusion</a></li>
+              <li><a href="#lattices">Lattices and the octet truss</a></li>
+              <li><a href="#ct">Why X-ray CT</a></li>
+              <li><a href="#prior-work">Strut-level visualization</a></li>
+            </ol>
+          </li>
+          <li><a href="#dataset">The data</a>
+            <ol>
+              <li><a href="#specimens">Specimens</a></li>
+              <li><a href="#files">Files per specimen</a></li>
+              <li><a href="#voxel-size">CT voxel sizes</a></li>
+              <li><a href="#build-direction">Build direction</a></li>
+              <li><a href="#access">Access</a></li>
+              <li><a href="#ground-truth">Held-out ground truth</a></li>
+            </ol>
+          </li>
+        </ol>
+      </aside>
+      <article class="prose">
+        <h2 id="background">Background</h2>
+
+        <h3 id="lpbf">Laser powder-bed fusion</h3>
+        <p>Laser powder-bed fusion (LPBF) is an additive manufacturing (AM) process for metals. A thin layer of metal powder (typically 20–60 µm) is spread across a build plate, a laser selectively melts one cross-section of the part, the platform lowers by one layer, and the cycle repeats thousands of times. Building layer by layer makes internal channels and lattice geometries possible that subtractive machining cannot produce.</p>
+        <p>That freedom comes at a price. LPBF is sensitive to laser power, scan speed, layer thickness, build orientation, and local thermal history. Variation in these conditions produces porosity, lack of fusion, dimensional error, surface roughness, and adhered, partially melted powder (<em>dross</em>). Thin, overhanging, or poorly supported features such as lattice struts are particularly vulnerable.</p>
+
+        <h3 id="lattices">Why lattice structures, and why the octet truss</h3>
+        <p>Lattice structures are periodic networks of slender <em>struts</em> joined at <em>nodes</em>. By tuning the unit-cell topology, strut diameter, and cell size, engineers can tailor stiffness, strength, energy absorption, thermal transport, and mass independently of one another. This is why lattices appear in lightweight aerospace brackets, orthopedic implants that encourage bone in-growth, heat exchangers, and impact-mitigating structures.</p>
+        <figure>
+          <img src="images/octet_truss.png" alt="Octet-truss unit cell rendered as struts, with the underlying spatial graph (nodes and edges) overlaid." style="max-width:min(420px, 100%)">
+          <figcaption><strong>Figure 1.</strong> An octet-truss unit cell. The gray cylinders are struts; the orange overlay is the nominal spatial graph with nodes (white) and edges. Every strut in the lattice is one edge of this graph. Image credit: adapted from Miao et al. [1]. © 2025 IEEE. Used with permission.</figcaption>
+        </figure>
+        <p>The <strong>octet truss</strong> (Figure 1) is one of the most widely used unit cells. It is built from a regular octahedron surrounded by eight tetrahedra, giving a stretch-dominated structure in which struts carry load primarily in tension and compression rather than bending. This yields a near-optimal strength-to-weight ratio and nearly isotropic mechanical behavior. Just as important for inspection, an octet lattice is highly regular: every unit cell is nominally identical, every strut has one of a small number of orientations, and the complete part can be described compactly as a <em>spatial graph</em> of nodes and edges. That regularity turns deviations from the expected pattern into strong indicators of manufacturing defects.</p>
+        <figure class="wide">
+          <img src="images/pic_octet.jpg" alt="Photograph of an LPBF-printed octet lattice with two magnified regions; one magnified region highlights a broken strut.">
+          <figcaption><strong>Figure 2.</strong> A printed octet lattice. The magnified insets show the rough, powder-coated strut surfaces that are typical of LPBF, and a broken strut (left). Only struts on the exterior can be inspected visually; the thousands of struts in the interior are hidden. Image credit: adapted from Miao et al. [1]. © 2025 IEEE. Used with permission.</figcaption>
+        </figure>
+        <p>In a lattice, a single defective strut can matter. A missing, broken, or severely thinned strut removes a load path, and several defective struts in the same region can create a local weak zone that dominates the failure behavior of the whole part. For critical applications, the manufacturer therefore needs to know not just <em>whether</em> the part has defects but <em>how many</em>, <em>of which kind</em>, <em>where</em>, and <em>whether they cluster</em>.</p>
+
+        <h3 id="ct">Why X-ray CT</h3>
+        <p>A lattice cannot be inspected from the outside (Figure 2). X-ray computed tomography (CT) is the standard non-destructive technique for looking inside: the specimen is rotated in an X-ray beam, hundreds to thousands of radiographic projections are acquired, and a reconstruction algorithm produces a three-dimensional array of voxels whose intensity reflects X-ray attenuation. Dense metal appears bright, air appears dark, and the manufactured lattice can be separated from the background by segmentation.</p>
+
+        <h3 id="prior-work">What has been done: strut-level visualization</h3>
+        <p><em>LatticeAnalytics</em> (Miao et al., IEEE TVCG 2025 [1]) demonstrates a strut-centric inspection pipeline for mostly intact struts with problematic surfaces or shapes, and participants are welcome to build on its ideas. It also leaves much open: it relies on a manual VR alignment step, its encodings target roughness and bending rather than missing or disconnected struts, and it does not address the <em>part-level</em> questions at all (where defects occur, whether they cluster, how they relate to orientation and build height, and how lattices compare). Those gaps are the focus of this contest.</p>
+
+        <h2 id="dataset">The data</h2>
+        <p>The contest uses LLNL's <strong>Missing Struts</strong> dataset, which was created to develop inspection techniques for lattice defects [2]. It includes real CT scans of real printed parts.</p>
+
+        <h3 id="specimens">Specimens</h3>
+        <p>Nine 9 × 9 × 9 octet-truss lattice cubes were printed in stainless steel 316L by laser powder-bed fusion. The design specifications are:</p>
+        <table>
+          <thead><tr><th>Property</th><th>Design value</th></tr></thead>
+          <tbody>
+            <tr><td>Unit-cell topology</td><td>Octet truss</td></tr>
+            <tr><td>Lattice size</td><td>9 × 9 × 9 unit cells</td></tr>
+            <tr><td>Unit-cell edge length</td><td>4.56 mm</td></tr>
+            <tr><td>Designed relative density</td><td>10 %</td></tr>
+            <tr><td>Designed strut diameter</td><td>350 µm</td></tr>
+            <tr><td>Material</td><td>Stainless steel 316L</td></tr>
+            <tr><td>Process</td><td>Laser powder-bed fusion</td></tr>
+            <tr><td>Nominal missing-strut fraction</td><td>0 %, 0.5 %, or 1 % of struts, depending on the specimen (three specimens per level)</td></tr>
+          </tbody>
+        </table>
+        <p>Struts were removed from the design files at random before printing, at the nominal percentages above, so that the same inspection method can be tested against known defect fractions. Note that the as-built parts also contain defects that were <em>not</em> designed in: measured missing-strut percentages can exceed the nominal value, and disconnected or broken struts are commonly observed [2].</p>
+
+        <h3 id="files">Files per specimen</h3>
+        <p>Each specimen is delivered as a folder containing a CT volume and a nominal graph. The STL files describe the meshes used for printing; each printing mesh is shared by the three specimens of the same nominal fraction:</p>
+        <table>
+          <thead><tr><th>File</th><th>Format</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>CT volume</td><td>Stack of <code>.tif</code> slices</td><td>Reconstructed X-ray CT data, one stack per specimen (e.g., <code>210125_Brian_Tran_strut_lattice_01 1 Slices</code>). Grayscale intensity is proportional to X-ray attenuation. Slices are ordered along the build (z) direction. Voxel sizes are listed <a href="#voxel-size">below</a>.</td></tr>
+            <tr><td>Printing meshes</td><td><code>.stl</code></td><td><code>0.stl</code> describes the complete lattice with no intentionally removed struts. The <code>0.5.stl</code> and <code>1.stl</code> meshes were used to print specimens with 0.5 % and 1 % of struts intentionally removed, respectively; those struts are already absent from these meshes.</td></tr>
+            <tr><td>Nominal spatial graph</td><td><code>.json</code></td><td>Node positions and edge (strut) lists describing the lattice topology as designed.</td></tr>
+          </tbody>
+        </table>
+        <aside class="note">
+          <p><strong>Reference for missing-strut detection.</strong> If you choose to use an STL reference, use <code>0.stl</code> as the complete-lattice reference for any of the nine specimens. The <code>0.5.stl</code> and <code>1.stl</code> files should not be used to detect missing struts: they were used to print the intentionally embedded defects and already omit the struts to be detected. Using an STL file is optional.</p>
+          <p><strong>Registration note.</strong> The STL mesh is <strong>not</strong> registered to the TIF stack or the JSON graph. Registration between the design and the scan is a problem in its own right, and solving it well is a valid contribution. For teams that prefer to start with analysis, the JSON graph of one specimen (<code>210127_Brian_Tran_strut_lattices_0point5dash1 1 Slices.json</code>) is already aligned with the TIF stack of the same name. Participants may use this specimen to develop their pipeline.</p>
+        </aside>
+
+        <h3 id="voxel-size">Specimens, dataset names, and CT voxel sizes</h3>
+        <p>The table below maps each specimen to its dataset folder name, the mesh used to print it, and its CT voxel size. The printing-mesh column records how each specimen was manufactured; for missing-strut detection with an STL reference, use <code>0.stl</code> for every specimen. On this site, specimens are referred to by nominal missing-strut percentage and replicate number (<code>0.5-1</code> is the first replicate at 0.5 %, i.e., dataset <code>210127_Brian_Tran_strut_lattices_0point5dash1 1 Slices</code>). The CT volumes are stored as integer voxel grids without embedded physical units; use the voxel sizes to convert voxel indices and distances to physical units (e.g., when comparing measured strut diameters to the designed 350 µm). Note that the three 0 % specimens were scanned with slightly anisotropic voxels.</p>
+        <table>
+          <thead><tr><th>Specimen</th><th>Nominal missing struts</th><th>Dataset folder</th><th>Mesh used for printing</th><th>Voxel size [x, y, z] (µm)</th></tr></thead>
+          <tbody>
+            <tr><td><code>0-1</code></td><td>0 %</td><td><code>210125_Brian_Tran_strut_lattice_01 1 Slices</code></td><td><code>0.stl</code></td><td>[55.32, 58.41, 56.54]</td></tr>
+            <tr><td><code>0-2</code></td><td>0 %</td><td><code>210125_Brian_Tran_strut_lattice_02 1 Slices</code></td><td><code>0.stl</code></td><td>[56.65, 58.22, 56.50]</td></tr>
+            <tr><td><code>0-3</code></td><td>0 %</td><td><code>210125_Brian_Tran_strut_lattice_03 1 Slices</code></td><td><code>0.stl</code></td><td>[58.10, 58.10, 58.10]</td></tr>
+            <tr><td><code>0.5-1</code></td><td>0.5 %</td><td><code>210127_Brian_Tran_strut_lattices_0point5dash1 1 Slices</code></td><td><code>0.5.stl</code></td><td>[58.09, 58.09, 58.09]</td></tr>
+            <tr><td><code>0.5-2</code></td><td>0.5 %</td><td><code>210127_Brian_Tran_strut_lattices_0point5dash2 1 Slices</code></td><td><code>0.5.stl</code></td><td>[58.09, 58.09, 58.09]</td></tr>
+            <tr><td><code>0.5-3</code></td><td>0.5 %</td><td><code>210127_Brian_Tran_strut_lattices_0point5dash3 1 Slices</code></td><td><code>0.5.stl</code></td><td>[58.09, 58.09, 58.09]</td></tr>
+            <tr><td><code>1-1</code></td><td>1 %</td><td><code>210127_Brian_Tran_strut_lattices_1_1 1 Slices</code></td><td><code>1.stl</code></td><td>[58.09, 58.09, 58.09]</td></tr>
+            <tr><td><code>1-2</code></td><td>1 %</td><td><code>210127_Brian_Tran_strut_lattices_1_2 1 Slices</code></td><td><code>1.stl</code></td><td>[58.09, 58.09, 58.09]</td></tr>
+            <tr><td><code>1-3</code></td><td>1 %</td><td><code>210127_Brian_Tran_strut_lattices_1_3 1 Slices</code></td><td><code>1.stl</code></td><td>[58.09, 58.09, 58.09]</td></tr>
+          </tbody>
+        </table>
+        <p>Each lattice is sandwiched between two solid plates, and the assembly was built with the plates standing <em>vertically</em> on the build platform, so the build direction runs parallel to the plates and along one edge of the lattice (Figure 3). "Bottom" and "top" in the sense of build height are therefore the lattice faces closest to and farthest from the build platform, not the faces touching the plates.</p>
+        <figure>
+          <img src="images/build_direction.png" alt="Side view of an octet lattice between two solid vertical plates, with an arrow labeled Build Direction pointing upward." style="max-width:min(460px, 100%)">
+          <figcaption><strong>Figure 3.</strong> Build orientation of the specimens. The lattice (black) sits between two solid plates (gray). The build direction (arrow) is vertical and parallel to the plates; each printed layer is a horizontal cross-section of this view.</figcaption>
+        </figure>
+        <p>The build direction is the most important geometric reference in this contest, because strut quality in LPBF depends on a strut's angle to it and on its distance from the build platform. In the data, the build direction is the slice-stacking axis of the CT volume (z in the TIF stack). Measure build height, strut inclination, and orientation-dependent statistics relative to this axis.</p>
+
+        <h3 id="access">Access</h3>
+        <h4>Download CT data</h4>
+        <p>Download the CT volumes as TIF stacks: <a href="https://gdo172.llnl.gov/data/tif_stacks.tar.gz">tif_stacks.tar.gz</a>.</p>
+
+        <h4>Stream with OpenVisus</h4>
+        <p>To stream the CT data directly with OpenVisus, use the dataset URLs below. Copy a link address into your OpenVisus client to load that specimen without downloading the full TIF archive.</p>
+        <table>
+          <thead><tr><th scope="col">Specimen</th><th scope="col">OpenVisus dataset URL</th></tr></thead>
+          <tbody>
+            <tr><th scope="row"><code>0-1</code></th><td><a href="https://olympus.sci.utah.edu/mod_visus?dataset=210125_Brian_Tran_strut_lattice_01_1_Slices">210125_Brian_Tran_strut_lattice_01_1_Slices</a></td></tr>
+            <tr><th scope="row"><code>0-2</code></th><td><a href="https://olympus.sci.utah.edu/mod_visus?dataset=210125_Brian_Tran_strut_lattice_02_1_Slices">210125_Brian_Tran_strut_lattice_02_1_Slices</a></td></tr>
+            <tr><th scope="row"><code>0-3</code></th><td><a href="https://olympus.sci.utah.edu/mod_visus?dataset=210125_Brian_Tran_strut_lattice_03_1_Slices">210125_Brian_Tran_strut_lattice_03_1_Slices</a></td></tr>
+            <tr><th scope="row"><code>0.5-1</code></th><td><a href="https://olympus.sci.utah.edu/mod_visus?dataset=210127_Brian_Tran_strut_lattices_0point5dash1_1_Slices">210127_Brian_Tran_strut_lattices_0point5dash1_1_Slices</a></td></tr>
+            <tr><th scope="row"><code>0.5-2</code></th><td><a href="https://olympus.sci.utah.edu/mod_visus?dataset=210127_Brian_Tran_strut_lattices_0point5dash2_1_Slices">210127_Brian_Tran_strut_lattices_0point5dash2_1_Slices</a></td></tr>
+            <tr><th scope="row"><code>0.5-3</code></th><td><a href="https://olympus.sci.utah.edu/mod_visus?dataset=210127_Brian_Tran_strut_lattices_0point5dash3_1_Slices">210127_Brian_Tran_strut_lattices_0point5dash3_1_Slices</a></td></tr>
+            <tr><th scope="row"><code>1-1</code></th><td><a href="https://olympus.sci.utah.edu/mod_visus?dataset=210127_Brian_Tran_strut_lattices_1_1_1_Slices">210127_Brian_Tran_strut_lattices_1_1_1_Slices</a></td></tr>
+            <tr><th scope="row"><code>1-2</code></th><td><a href="https://olympus.sci.utah.edu/mod_visus?dataset=210127_Brian_Tran_strut_lattices_1_2_1_Slices">210127_Brian_Tran_strut_lattices_1_2_1_Slices</a></td></tr>
+            <tr><th scope="row"><code>1-3</code></th><td><a href="https://olympus.sci.utah.edu/mod_visus?dataset=210127_Brian_Tran_strut_lattices_1_3_1_Slices">210127_Brian_Tran_strut_lattices_1_3_1_Slices</a></td></tr>
+          </tbody>
+        </table>
+
+        <h3 id="ground-truth">Held-out ground truth</h3>
+        <p>For the purpose of evaluating the Agentic AI Track, the organizers hold a curated list of the missing struts for every specimen: the struts that were intentionally omitted in the design, verified against the CT volume. This list is not released during the contest. After the contest, the full ground truth will be published together with the submissions so that the dataset can serve as a lasting benchmark.</p>
+
+        <p class="refs-pointer">Numbered citations refer to the <a href="acknowledgements.html#references">reference list</a>.</p>
+      </article>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>IEEE SciVis Contest 2027 &nbsp;|&nbsp; Co-organized with <a href="https://ieeevis.org">IEEE VIS</a> &nbsp;|&nbsp; Created at Lawrence Livermore National Laboratory &nbsp;|&nbsp; Questions: see <a href="acknowledgements.html">Organizers</a></p>
+    </div>
+  </footer>
+</body>
+</html>

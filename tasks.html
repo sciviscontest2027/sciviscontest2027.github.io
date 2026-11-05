@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tasks | IEEE SciVis Contest 2027</title>
+  <meta name="description" content="IEEE SciVis Contest 2027: visual analysis of additively manufactured lattice structures">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav-wrap">
+      <a class="brand" href="index.html">
+        <img src="images/logo.png" alt="" width="44" height="44">
+        <span>SciVis Contest 2027</span>
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation">
+      <label for="nav-toggle" class="nav-burger"><span></span><span></span><span></span></label>
+      <nav class="site-nav" aria-label="Main">
+        <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="data.html">Data</a></li>
+        <li class="active"><a href="tasks.html" aria-current="page">Tasks</a></li>
+        <li><a href="submissions.html">Submissions</a></li>
+        <li><a href="archive.html">Archive</a></li>
+        <li><a href="acknowledgements.html">Acknowledgements</a></li>
+        <li><a href="pastcontests.html">Past SciVis Contests</a></li>
+        <li><a href="faqs.html">FAQs</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="page-title"><div class="wrap"><h1>Tasks</h1><p>Two tasks at two scales of the same data, two tracks that differ in who builds the solution, and how the jury evaluates each.</p></div></section>
+    <div class="wrap page-grid">
+      <aside class="toc" aria-label="On this page">
+        <p>On this page</p>
+        <ol>
+          <li><a href="#overview">1. Challenge overview</a></li>
+          <li><a href="#task1">2. Task 1: Strut-level analysis</a>
+            <ol>
+              <li><a href="#strut-features">2.1 Strut-level features</a></li>
+              <li><a href="#defect-classification">2.2 Defect classification</a></li>
+              <li><a href="#strut-vis">2.3 Strut-level visualization</a></li>
+            </ol>
+          </li>
+          <li><a href="#task2">3. Task 2: Part-level analysis</a>
+            <ol>
+              <li><a href="#designed-vs-built">3.1 Designed versus as-built part</a></li>
+              <li><a href="#defect-statistics">3.2 Defect statistics</a></li>
+              <li><a href="#defect-location">3.3 Where do defects occur?</a></li>
+              <li><a href="#specimen-comparison">3.4 Comparison across specimens</a></li>
+              <li><a href="#mechanical">3.5 Toward mechanical consequences</a></li>
+              <li><a href="#part-vis">3.6 Part-level visualization</a></li>
+            </ol>
+          </li>
+          <li><a href="#tracks">4. Tracks</a>
+            <ol>
+              <li><a href="#track-vis">4.1 Visualization Design Track</a></li>
+              <li><a href="#track-agent">4.2 Agentic AI Track</a></li>
+            </ol>
+          </li>
+          <li><a href="#evaluation">5. Evaluation</a>
+            <ol>
+              <li><a href="#eval-vis">5.1 Visualization Design Track</a></li>
+              <li><a href="#eval-agent">5.2 Agentic AI Track</a></li>
+            </ol>
+          </li>
+        </ol>
+      </aside>
+      <article class="prose">
+        <h2 id="overview">1. Challenge overview</h2>
+        <p>The overall goal is simple to state: <strong>help a materials scientist understand the quality of a printed lattice from its CT scan</strong>, both at the level of individual struts and at the level of the whole part, and do so across lattices with different defect fractions.</p>
+        <p>Participants are not required to answer every question; a focused, well-executed treatment of a subset is preferable to a shallow treatment of everything. You are also encouraged to go beyond the listed questions if the data suggests something interesting.</p>
+
+        <h2 id="task1">2. Task 1: Strut-level analysis</h2>
+        <dl class="scale">
+          <dt>Scale</dt><dd>One strut, or a small set of struts, at a time.</dd>
+          <dt>Core question</dt><dd><em>Is this strut as designed, and if not, what is wrong with it?</em></dd>
+        </dl>
+        <p>The output of this task is a per-strut description: features, a defect classification, and a visual representation that lets an expert verify the classification quickly and confidently.</p>
+        <p>Note that missing struts are the only defect that was <em>designed in</em>. The scans also contain broken, thinned, bent, and fused struts that nobody planned (see <a href="data.html">Data</a>), and Task 1 covers all of them: a strut that is present but defective is just as much a finding as one that is absent.</p>
+
+        <h3 id="strut-features">2.1 Strut-level features</h3>
+        <p>Compute and/or visualize, for every strut, features that describe how it deviates from its design. Suggested features include:</p>
+        <ul>
+          <li><strong>Dimensions.</strong> Length between nodes, mean/min/max diameter along the strut, and comparison to the designed 350 µm diameter and designed length.</li>
+          <li><strong>Continuity.</strong> Whether material is present along the whole centerline; location and extent of any gap.</li>
+          <li><strong>Thickness profile.</strong> Diameter as a function of position along the strut; thinning toward the middle is a typical precursor to breakage.</li>
+          <li><strong>Cross-sectional shape.</strong> Deviation from a circle (e.g., ellipse aspect ratio, circularity), and whether the deviation has a consistent orientation (e.g., elongated along the build direction).</li>
+          <li><strong>Straightness.</strong> Curvature or bow of the centerline relative to the straight nominal strut.</li>
+          <li><strong>Surface.</strong> Roughness or adhered powder; excess material near nodes (dross).</li>
+        </ul>
+
+        <h3 id="defect-classification">2.2 Defect classification</h3>
+        <p>Classify each strut as <strong>normal</strong>, <strong>missing</strong> (no material along the designed path), <strong>broken</strong> (material present at both ends but with at least one gap), <strong>thin</strong> (continuous but substantially under the designed diameter), or <strong>other</strong> (e.g., bent, dross, fused to a neighbor). Define your thresholds explicitly and show how sensitive the classification is to them. Because imaging artifacts can mimic defects, the classification should be <em>verifiable</em>: the expert must be able to look at a flagged strut and decide within seconds whether the flag is right.</p>
+
+        <h3 id="strut-vis">2.3 Strut-level visualization</h3>
+        <p>Design a visual representation of a single strut, and of a small set of struts side by side, that supports verification and comparison. This is where the visualization research question lives. Consider how your strut view communicates uncertainty from segmentation and registration, how it scales to browsing hundreds of flagged struts, and how it links to the part-level views of Task 2.</p>
+
+        <h2 id="task2">3. Task 2: Part-level analysis</h2>
+        <dl class="scale">
+          <dt>Scale</dt><dd>The whole lattice, and the set of nine lattices.</dd>
+          <dt>Core question</dt><dd><em>What is the overall quality of this part, where are its weaknesses, and why might they be there?</em></dd>
+        </dl>
+        <p>The output of this task is an assessment of the part, the kind of thing a materials scientist would put in an inspection report or show to a design team, backed by visualizations that make the spatial and statistical structure of the defects understandable. Part-level statistics should cover every defect category of Task 1, not only the designed-in missing struts.</p>
+
+        <h3 id="designed-vs-built">3.1 Designed versus as-built part</h3>
+        <ul>
+          <li>Calculate the designed number of struts and nodes from the nominal graph (or the STL) for a 9 × 9 × 9 octet lattice, accounting for the struts that were intentionally removed.</li>
+          <li>Measure actual unit-cell dimensions (cell pitch along each axis, overall part dimensions) from the CT data and compare them to the design; characterize shrinkage, warping, or anisotropy.</li>
+          <li>Reconstruct the as-built part as a 3D model (surface or graph) and compare it to the STL design. A global deviation map is one approach; a graph-to-graph comparison is another.</li>
+        </ul>
+
+        <h3 id="defect-statistics">3.2 Defect statistics</h3>
+        <ul>
+          <li>Count defective struts by category and in total, as absolute numbers and as percentages of the designed strut count.</li>
+          <li>Compare the measured missing-strut fraction to the nominal design fraction (0 %, 0.5 %, or 1 %; see the <a href="data.html#voxel-size">specimen table</a> for which dataset is which). Explain discrepancies.</li>
+        </ul>
+
+        <h3 id="defect-location">3.3 Where do defects occur?</h3>
+        <ul>
+          <li><strong>Build height.</strong> Stratify defects by distance from the build plate: near the plate, in the middle, near the top. Is there a trend? (LPBF thermal history and support conditions vary with height.)</li>
+          <li><strong>Exterior versus bulk.</strong> Compare defect rates on the outer unit-cell shell to the interior.</li>
+          <li><strong>Spatial pattern.</strong> Are defects clustered or randomly distributed? Use and visualize an appropriate spatial statistic (nearest-neighbor distances, Ripley's K, a null model of random strut removal) and show the evidence, not just a p-value.</li>
+          <li><strong>Orientation.</strong> Group struts by orientation relative to the build direction (e.g., horizontal, inclined, vertical) and compare defect rates; in LPBF, horizontal and downward-facing features are the hardest to print.</li>
+          <li><strong>Other factors.</strong> Node degree, distance from the part's edge, proximity to other defects, or anything else you find predictive.</li>
+        </ul>
+
+        <h3 id="specimen-comparison">3.4 Comparison across specimens</h3>
+        <p>Apply the same pipeline to all nine lattices and compare them. Do the three nominal defect fractions separate cleanly in the measured data? Are the <em>unintended</em> defects (broken, thin, missing) similar across specimens, which would point to the process, or do they vary, which would point to the individual build? Design visualizations that support comparing nine parts at once.</p>
+
+        <h3 id="mechanical">3.5 Toward mechanical consequences (advanced)</h3>
+        <p>The materials scientist's hardest question is at what defect fraction the lattice strength is significantly affected. Participants may approach this with a simple structural model on the as-built graph (e.g., a truss or beam finite-element model with the measured defects removed), with published results on octet-lattice stiffness versus defect density, or with a visual analysis that connects defect clusters to plausible load paths. Any such analysis should be clear about its assumptions.</p>
+
+        <h3 id="part-vis">3.6 Part-level visualization</h3>
+        <p>The design challenge is to show a 20,000-strut lattice in a way that reveals a few hundred defective struts, their spatial distribution, and their relationship to build height, orientation, and the exterior, without the occlusion that defeats naive 3D rendering. Abstractions of the lattice (the spatial graph, unit-cell grids, per-layer or per-shell summaries, unrolled or projected layouts), focus-and-context techniques, small multiples across specimens, and linked strut-level detail views are all fair game. The visualizations should also work as static figures for presentations and data sharing.</p>
+
+        <h2 id="tracks">4. Tracks</h2>
+        <p>Every submission enters exactly one track. The tracks address the same tasks on the same data (Task 1 and Task 2, described above) but differ in <em>how</em> the solution is produced and in the research question they ask: one about visualization design, the other about autonomous AI.</p>
+        <table class="tracks">
+          <thead><tr><th></th><th class="col-vis">Visualization Design Track</th><th class="col-agent">Agentic AI Track</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Who creates the analysis/visualization</th><td>Humans, with any tools they choose</td><td>An autonomous agentic system, with no human intervention after launch</td></tr>
+            <tr><th scope="row">Research question</th><td>What visual encodings, interactions, and analysis workflows best answer the domain scientist's questions?</td><td>Can an agentic system autonomously find the missing struts, characterize the other defects, and produce an effective system for the task?</td></tr>
+            <tr><th scope="row">Primary evidence</th><td>Report, video, figures</td><td>Defect CSVs (missing struts scored against held-out ground truth), the generated visualization system, report, video</td></tr>
+          </tbody>
+        </table>
+
+        <section class="track track-vis" id="track-vis">
+          <p class="track-label">Track</p>
+          <h3>4.1 Visualization Design Track</h3>
+          <p class="track-tagline">Humans design the analysis and visualization, with any tools they choose.</p>
+        <p>Strong submissions in this track typically:</p>
+        <ul>
+          <li>articulate the domain questions as concrete visualization tasks and show how each design decision serves them;</li>
+          <li>demonstrate the system on the real data, with concrete findings (e.g., "defects in specimen X concentrate in the lowest two cell layers and are predominantly horizontal struts");</li>
+          <li>address both the strut level and the part level, and the link between them;</li>
+          <li>treat uncertainty and verification as first-class concerns;</li>
+          <li>evaluate the approach, whether through a case study, expert feedback, or comparison with a baseline.</li>
+        </ul>
+
+        </section>
+
+        <section class="track track-agent" id="track-agent">
+          <p class="track-label">Track</p>
+          <h3>4.2 Agentic AI Track</h3>
+          <p class="track-tagline">An autonomous agentic AI system does the work, with no human intervention after launch.</p>
+        <p>This track asks whether an autonomous agentic AI system can carry out the inspection end to end. The system is given the data and a task description and must, <strong>without human intervention after launch</strong>, (a) detect the missing struts in each specimen and report their locations in a machine-readable file, and (b) create a system or set of visualizations that addresses Tasks 1 and 2.</p>
+        <p>For related work on agentic AI for visualization, see <em>Toward AI VIS Co-Scientists</em> <a href="acknowledgements.html#ref-ai-vis-co-scientists">[5]</a>, which presents a general, end-to-end agent harness for complex data visualization tasks.</p>
+
+        <h4 id="autonomy">4.2.1 Autonomy requirements</h4>
+        <ul>
+          <li>Participants may design the agentic system in advance in any way they wish: choice of models, frameworks, tools (e.g., MCP servers, tool-use), skills, sub-agents, memory, prompts, and any software the agent can call. Development and testing on the contest data before the final run is allowed.</li>
+          <li>Human-written code is permitted <em>inside tools the agent calls</em> (e.g., a segmentation library) but not as a step that a human executes between agent actions. The distinction we care about is: once the run starts, nobody touches it.</li>
+          <li>Any model is allowed (local or API, open or closed). Report the models used, approximate compute, and cost.</li>
+        </ul>
+
+        <h4 id="csv">4.2.2 Required output: defect CSV</h4>
+        <p>For <strong>each</strong> of the nine specimens, the agent must produce one CSV file listing the detected defective struts, each labeled with its defect type.</p>
+        <p><strong>File naming.</strong> <code>&lt;specimen_folder_name&gt;.csv</code>, named exactly after the specimen folder.</p>
+        <p><strong>Format.</strong> UTF-8, comma-separated, with a header row. Columns:</p>
+        <table>
+          <thead><tr><th>Column</th><th>Required</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>x</code></td><td><strong>mandatory</strong></td><td>Column index (voxels) of the strut center</td></tr>
+            <tr><td><code>y</code></td><td><strong>mandatory</strong></td><td>Row index (voxels) of the strut center</td></tr>
+            <tr><td><code>z</code></td><td><strong>mandatory</strong></td><td>Slice index (voxels) of the strut center</td></tr>
+            <tr><td><code>strut_id</code></td><td>optional</td><td>Identifier of the strut in the nominal JSON graph (edge index), if the agent established the correspondence</td></tr>
+            <tr><td><code>node_a</code>, <code>node_b</code></td><td>optional</td><td>Identifiers of the two end nodes in the nominal graph</td></tr>
+            <tr><td><code>defect_type</code></td><td><strong>mandatory</strong></td><td>One of <code>missing</code>, <code>broken</code>, <code>thin</code>, or <code>other</code> (the categories of Task 1). Only <code>missing</code> rows enter the detection score (criterion (a) under <a href="#evaluation">Evaluation</a>); <code>broken</code>, <code>thin</code>, and <code>other</code> rows are not scored there and do not count as false positives, but the agent is expected to report them and to address those defects in its visualization output (criteria (b) and (c)). Rows with a missing or unrecognized label are ignored.</td></tr>
+            <tr><td><code>confidence</code></td><td>optional</td><td>A value in [0, 1]</td></tr>
+          </tbody>
+        </table>
+        <p><strong>What "strut center" means.</strong> The location of a missing strut is the <strong>midpoint between the two nodes that the strut would have connected</strong>, i.e., the center of the designed strut, expressed in the voxel coordinate convention of the CT volume (see <a href="data.html#build-direction">Data</a>). Because the strut itself is absent, the location must be inferred from the surrounding lattice (the positions of the two nodes, the pattern of neighboring struts, or the registered nominal graph). For <code>broken</code>, <code>thin</code>, and <code>other</code> rows, report the center of the as-designed strut in the same way.</p>
+        <p><strong>Tolerance.</strong> A <code>missing</code> detection is counted as correct if its reported center is within <strong>20 voxels</strong> (Euclidean distance) of a ground-truth missing-strut center. Each ground-truth strut can be matched by at most one detection; each detection can match at most one ground-truth strut (one-to-one matching, nearest first).</p>
+        <p>Example:</p>
+<pre><code>x,y,z,strut_id,node_a,node_b,defect_type,confidence
+1043.5,612.0,287.0,4518,1207,1340,missing,0.97
+388.0,1290.5,1455.0,,,,missing,0.81
+702.0,702.0,1810.0,9931,2611,2744,broken,0.66</code></pre>
+
+        <h4 id="vis-system">4.2.3 Required output: visualization system</h4>
+        <p>Beyond the CSVs, the agentic system must generate the visualization component of the submission: a dashboard, an application, a notebook, or a set of static figures that addresses Tasks 1 and 2 (strut-level verification and part-level assessment).</p>
+
+        <h4 id="report-not-agent">4.2.4 What is not an agent output: the report</h4>
+        <p>The autonomy requirement applies to the two outputs above and <strong>not</strong> to the report. The report is written by the participants after the final run and is a reflection <em>on</em> the agent rather than a product <em>of</em> it; the jury evaluates criterion (d) and the autonomy criterion below primarily from it. See <a href="submissions.html#include">What to include</a> for the required content.</p>
+        </section>
+
+        <h2 id="evaluation">5. Evaluation</h2>
+        <p>A jury of visualization researchers, AI/ML experts, and materials scientists reviews all submissions. The two tracks are judged separately.</p>
+        <p>The criteria below are also the structure we expect in the report: please address each criterion for your track explicitly, so that the jury can find the relevant evidence without having to infer it. A short subsection or paragraph per criterion is sufficient; criteria you deliberately did not pursue should be named as such with a one-line justification rather than left out.</p>
+
+        <h3 class="h-track-vis" id="eval-vis">5.1 Visualization Design Track</h3>
+        <table>
+          <thead><tr><th>Criterion</th><th>What we look for</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Task coverage and insight</strong></td><td>Are the strut-level and part-level questions addressed? Are there concrete findings about the data?</td></tr>
+            <tr><td><strong>Visual encoding and interaction design</strong></td><td>Are the encodings appropriate, justified, and effective for the multi-scale problem? Is uncertainty communicated?</td></tr>
+            <tr><td><strong>Analysis quality</strong></td><td>Are the measurements, classifications, and statistics sound? Are thresholds and assumptions explicit?</td></tr>
+            <tr><td><strong>Scalability and generality</strong></td><td>Does the approach handle all nine specimens? Would it transfer to other lattices?</td></tr>
+            <tr><td><strong>Reflection</strong></td><td>Case study, comparison with baselines, honest discussion of limitations.</td></tr>
+            <tr><td><strong>Communication</strong></td><td>Clarity of report, video, and figures.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="h-track-agent" id="eval-agent">5.2 Agentic AI Track</h3>
+        <table>
+          <thead><tr><th>Criterion</th><th>What we look for</th></tr></thead>
+          <tbody>
+            <tr><td><strong>(a) Detection performance</strong></td><td>Recall, precision, and F1 of missing-strut detection on the randomly selected specimen, 20-voxel tolerance.</td></tr>
+            <tr><td><strong>(b) Efficacy of visual encodings</strong></td><td>Quality and appropriateness of the strut-level and part-level visualizations the system generated.</td></tr>
+            <tr><td><strong>(c) Overall visualization design and goal attainment</strong></td><td>Coherence and usability of the generated system; does it let a scientist answer Tasks 1 and 2?</td></tr>
+            <tr><td><strong>(d) Agentic design and efficiency</strong></td><td>Quality of the agent architecture (tools, skills, sub-agents, planning, self-verification, error recovery); robustness; transparency; token, time, and compute cost per specimen.</td></tr>
+            <tr><td><strong>Autonomy and transparency</strong></td><td>Credibility of the no-intervention protocol; completeness of the architecture description; reproducibility.</td></tr>
+            <tr><td><strong>Communication</strong></td><td>Clarity of report and video.</td></tr>
+          </tbody>
+        </table>
+      </article>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>IEEE SciVis Contest 2027 &nbsp;|&nbsp; Co-organized with <a href="https://ieeevis.org">IEEE VIS</a> &nbsp;|&nbsp; Created at Lawrence Livermore National Laboratory &nbsp;|&nbsp; Questions: see <a href="acknowledgements.html">Organizers</a></p>
+    </div>
+  </footer>
+</body>
+</html>

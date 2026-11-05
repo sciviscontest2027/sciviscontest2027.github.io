@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAQs | IEEE SciVis Contest 2027</title>
+  <meta name="description" content="IEEE SciVis Contest 2027: visual analysis of additively manufactured lattice structures">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav-wrap">
+      <a class="brand" href="index.html">
+        <img src="images/logo.png" alt="" width="44" height="44">
+        <span>SciVis Contest 2027</span>
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation">
+      <label for="nav-toggle" class="nav-burger"><span></span><span></span><span></span></label>
+      <nav class="site-nav" aria-label="Main">
+        <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="data.html">Data</a></li>
+        <li><a href="tasks.html">Tasks</a></li>
+        <li><a href="submissions.html">Submissions</a></li>
+        <li><a href="archive.html">Archive</a></li>
+        <li><a href="acknowledgements.html">Acknowledgements</a></li>
+        <li><a href="pastcontests.html">Past SciVis Contests</a></li>
+        <li class="active"><a href="faqs.html" aria-current="page">FAQs</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="page-title"><div class="wrap"><h1>Frequently asked questions</h1><p>Answers to the questions we expect most often. More will be added as they come in.</p></div></section>
+    <div class="wrap">
+      <article class="prose faq">
+        <h3>Who can participate?</h3>
+        <p>The contest is open worldwide to students, researchers, industry professionals, and visualization enthusiasts. Individuals and teams are both welcome; we suggest teams of about six or fewer so that authorship stays clear.</p>
+
+        <h3>Can one team submit to both tracks?</h3>
+        <p>A team may submit one entry per track, but each entry must be a distinct submission with its own report and video. The same visualization system may not be entered in both tracks.</p>
+
+        <h3>Do I need to address every question in Tasks 1 and 2?</h3>
+        <p>No. Focus on what you can do well. The jury values depth, soundness, and insight over breadth. That said, the contest is about the connection between the strut level and the part level, so entries that address only one scale will be at a disadvantage.</p>
+
+        <h3>Do I need to work on all nine specimens?</h3>
+        <p>For the Visualization Design Track, we strongly encourage it (cross-specimen comparison is part of Task 2), but you may concentrate on a subset if you explain why. For the Agentic AI Track, a CSV for every specimen is required, because the scored specimen is drawn at random after the deadline.</p>
+
+        <h3>The STL/JSON is not aligned with the CT data. Is registration part of the challenge?</h3>
+        <p>Yes, if you want it to be. One specimen is provided with a pre-aligned JSON graph so that you can develop analysis methods first. Solving registration for the remaining specimens is a legitimate contribution, as is a method that does not need the design at all.</p>
+
+        <h3>For the Agentic AI Track, can the agent use existing visualization software?</h3>
+        <p>Yes. The agent may call any tool you give it (VTK, napari, PyVista, plotting libraries, your own MCP servers). Describe in the report what the agent was given and what it created itself.</p>
+
+        <h3>For the Agentic AI Track, may the agent write the report?</h3>
+        <p>No. The report is where <em>you</em> explain the agent to us (see <a href="tasks.html#report-not-agent">the track description</a> and <a href="submissions.html#include">What to include</a>); an agent narrating its own run is not useful evidence for the jury. Agent-generated figures are welcome in the report if labeled as such.</p>
+
+        <h3>Can I use the LatticeAnalytics paper's methods?</h3>
+        <p>Absolutely. The contest is explicitly designed to build on and go beyond that work, in particular toward missing/disconnected struts and the part level.</p>
+      </article>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>IEEE SciVis Contest 2027 &nbsp;|&nbsp; Co-organized with <a href="https://ieeevis.org">IEEE VIS</a> &nbsp;|&nbsp; Created at Lawrence Livermore National Laboratory &nbsp;|&nbsp; Questions: see <a href="acknowledgements.html">Organizers</a></p>
+    </div>
+  </footer>
+</body>
+</html>

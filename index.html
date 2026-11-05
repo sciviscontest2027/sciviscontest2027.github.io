@@ -1,11 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>It works!</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IEEE SciVis Contest 2027</title>
+  <meta name="description" content="IEEE SciVis Contest 2027: visual analysis of additively manufactured lattice structures">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>It works!</h1>
+  <header class="site-header">
+    <div class="wrap nav-wrap">
+      <a class="brand" href="index.html">
+        <img src="images/logo.png" alt="" width="44" height="44">
+        <span>SciVis Contest 2027</span>
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation">
+      <label for="nav-toggle" class="nav-burger"><span></span><span></span><span></span></label>
+      <nav class="site-nav" aria-label="Main">
+        <ul>
+        <li class="active"><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="data.html">Data</a></li>
+        <li><a href="tasks.html">Tasks</a></li>
+        <li><a href="submissions.html">Submissions</a></li>
+        <li><a href="archive.html">Archive</a></li>
+        <li><a href="acknowledgements.html">Acknowledgements</a></li>
+        <li><a href="pastcontests.html">Past SciVis Contests</a></li>
+        <li><a href="faqs.html">FAQs</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-text">
+          <p class="hero-kicker">IEEE VIS 2027</p>
+          <h1>2027 IEEE SciVis Contest</h1>
+          <p class="hero-sub">Micron-scale defects. Large-scale consequences.</p>
+          <p class="hero-lead">Tiny defects hide inside 3D-printed metal lattices, and X-ray CT captures all of them, buried in gigabytes of volume data. This year's challenge: design the visualization that makes those flaws jump out, or build an autonomous AI agent that hunts them down and tells the story itself. Two tracks, one goal: show a materials scientist what went wrong, and where.</p>
+          <p class="hero-actions">
+            <a class="btn btn-primary" href="tasks.html">Read the tasks</a>
+            <a class="btn btn-secondary" href="data.html">Get the data</a>
+          </p>
+        </div>
+        <div class="hero-logo">
+          <img src="images/logo.png" alt="2027 IEEE SciVis Contest logo: a laser melting a layer of metal powder on a build plate">
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section">
+      <div class="prose">
+        <h2>What is the SciVis Contest?</h2>
+        <p>Welcome to the 2027 IEEE SciVis Contest, held annually as part of the <a href="https://ieeevis.org">IEEE VIS</a> conference. The 2027 contest, created in collaboration with the Advanced Materials Process Science Group at Lawrence Livermore National Laboratory (LLNL), focuses on the <strong>visual analysis of X-ray computed tomography (CT) scans of metal lattice structures produced by laser powder-bed fusion</strong>. The data are nine 9 × 9 × 9 octet-truss lattices printed at LLNL with intentionally missing struts; like every printed part, they also contain unintended defects. A lattice relies on thousands of thin struts, which makes it unusually sensitive to such defects, and finding them is what this contest asks you to do.</p>
+        <p>The contest has <strong>two tasks</strong> at two scales of the same data (the individual strut and the entire part) and <strong>two tracks</strong> that differ in <em>who</em> creates the solution: a human visualization designer, or a fully autonomous agentic AI system.</p>
+      </div>
+
+      <table class="facts">
+        <tbody>
+          <tr><th scope="row">Domain</th><td>Additive manufacturing, non-destructive evaluation (NDE), materials science</td></tr>
+          <tr><th scope="row">Data</th><td>X-ray CT volumes, as-designed STL meshes, and a nominal node/strut graph for nine 9 × 9 × 9 octet lattices</td></tr>
+          <tr><th scope="row">Tasks</th><td><a href="tasks.html#task1">Task 1: Strut-level analysis</a> &nbsp;·&nbsp; <a href="tasks.html#task2">Task 2: Part-level analysis</a></td></tr>
+          <tr><th scope="row">Tracks</th><td><a href="tasks.html#track-vis">Visualization Design Track</a> &nbsp;·&nbsp; <a href="tasks.html#track-agent">Agentic AI Track</a></td></tr>
+          <tr><th scope="row">Submission</th><td>Report (3–4 pages, VGTC format) + video (≤ 10 min); Agentic AI Track additionally submits a ZIP of defect CSV files</td></tr>
+          <tr><th scope="row">Prize</th><td>$1,000 cash prize for the top entry, sponsored by <a href="https://www.visoar.com/">ViSOAR</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="wrap section">
+      <div class="features">
+        <div class="feature">
+          <h3>Two scales, one dataset</h3>
+          <p>Task 1 looks at a single strut: is it as designed, and if not, what is wrong with it? Task 2 looks at the whole 20,000-strut part: where are the defects, do they cluster, and how do nine specimens compare?</p>
+        </div>
+        <div class="feature">
+          <h3>Real parts, real consequences</h3>
+          <p>The specimens are stainless-steel 316L octet lattices printed by laser powder-bed fusion with 0 %, 0.5 %, or 1 % of struts removed from the design (three specimens at each level; see the <a href="data.html#voxel-size">specimen table</a>). The as-built parts also contain defects nobody planned.</p>
+        </div>
+        <div class="feature">
+          <h3>Human or AI agent</h3>
+          <p>Enter the Visualization Design Track with any tools you choose, or the Agentic AI Track, where an autonomous system must find the missing struts and build the visualization with no human intervention after launch.</p>
+        </div>
+        <div class="feature">
+          <h3>Win a cash prize</h3>
+          <p>Submissions are evaluated by the contest jury on criteria such as usability, creativity, and innovation. The top entry will be awarded a $1,000 cash prize, generously sponsored by <a href="https://www.visoar.com/">ViSOAR</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section" id="dates">
+      <div class="prose">
+        <h2>Important dates</h2>
+      </div>
+      <table class="dates">
+        <tbody>
+          <tr><td>November 9 2026</td><td>Official announcement at IEEE VIS 2026</td></tr>
+          <tr class="deadline"><td>July 31, 2027 (23:59 AoE)</td><td>Submission deadline</td></tr>
+          <tr><td>Approx. September 2027</td><td>Notification of shortlisted entries</td></tr>
+          <tr><td>October/November 2027</td><td>Presentations by shortlisted teams at IEEE VIS 2027; winners announced</td></tr>
+        </tbody>
+      </table>
+      <div class="prose">
+        <p>On this website you can find information on the provided data, the visualization tasks, and the submission process. If you have any questions, feel free to contact the contest chairs listed under <a href="acknowledgements.html">Acknowledgements</a>.</p>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <p class="release">LLNL-WEB-2025432. This work was performed under the auspices of the U.S. Department of Energy by Lawrence Livermore National Laboratory under contract DE-AC52-07NA27344. Lawrence Livermore National Security, LLC</p>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>IEEE SciVis Contest 2027 &nbsp;|&nbsp; Co-organized with <a href="https://ieeevis.org">IEEE VIS</a> &nbsp;|&nbsp; Created at Lawrence Livermore National Laboratory &nbsp;|&nbsp; Questions: see <a href="acknowledgements.html">Organizers</a></p>
+    </div>
+  </footer>
 </body>
 </html>
